@@ -1,0 +1,10 @@
+*.log
+.DS_Store
+.env
+.env.backup
+.phpunit.result.cache
+/vendor
+/node_modules
+/storage/*.key
+/.idea
+/.vscode
