@@ -24,6 +24,8 @@ class AppSetting extends Model
             'maintenance_mode' => false,
             'maintenance_message' => 'Kive is getting a tune-up. Back shortly.',
         ],
+        // test | live per integration (IntegrationController); a missing key follows kive-backend's .env.
+        'integrations' => [],
     ];
 
     /** @return array<string, mixed> */

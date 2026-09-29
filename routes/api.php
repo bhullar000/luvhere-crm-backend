@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BroadcastController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\IntegrationController;
 use App\Http\Controllers\Admin\PhotoModerationController;
 use App\Http\Controllers\Admin\ReferenceDataController;
 use App\Http\Controllers\Admin\ReportController;
@@ -59,6 +60,8 @@ Route::middleware(['auth:sanctum', 'admin.role'])->group(function () {
         Route::delete('/reference/{type}/{id}', [ReferenceDataController::class, 'destroy'])->whereNumber('id');
         Route::get('/settings', [SettingController::class, 'show']);
         Route::put('/settings', [SettingController::class, 'update']);
+        Route::get('/integrations', [IntegrationController::class, 'show']);
+        Route::put('/integrations', [IntegrationController::class, 'update']);
         Route::post('/broadcasts/preview', [BroadcastController::class, 'preview']);
         Route::post('/broadcasts', [BroadcastController::class, 'send']);
     });
