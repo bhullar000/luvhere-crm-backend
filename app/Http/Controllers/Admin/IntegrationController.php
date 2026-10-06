@@ -18,7 +18,7 @@ use Illuminate\Validation\Rule;
 class IntegrationController extends Controller
 {
     /** The integrations kive-backend switches, in the order a new user meets them. */
-    public const KEYS = ['sms', 'verification', 'inappropriate', 'moderation'];
+    public const KEYS = ['sms', 'verification', 'inappropriate', 'moderation', 'payments'];
 
     public function show(): JsonResponse
     {

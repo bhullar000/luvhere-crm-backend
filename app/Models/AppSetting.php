@@ -6,19 +6,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Schema;
 
 /** Remote key/value config editable from the CRM (free limits, min version, maintenance…). */
 #[Fillable(['key', 'value'])]
 class AppSetting extends Model
 {
     protected $primaryKey = 'key';
+
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $casts = ['value' => 'array'];
 
     public const DEFAULTS = [
-        'free_limits' => ['likes_per_day' => 5, 'messages_per_match' => 5],
+        'free_limits' => ['likes_per_day' => 5, 'messages_per_match' => 5, 'anon_chats_per_day' => 2, 'anon_messages_per_chat' => 5],
         'app' => [
             'min_supported_version' => '1.0.0',
             'maintenance_mode' => false,

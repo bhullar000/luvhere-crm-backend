@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BroadcastController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IntegrationController;
 use App\Http\Controllers\Admin\PhotoModerationController;
+use App\Http\Controllers\Admin\PremiumController;
 use App\Http\Controllers\Admin\ReferenceDataController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SettingController;
@@ -62,6 +63,8 @@ Route::middleware(['auth:sanctum', 'admin.role'])->group(function () {
         Route::put('/settings', [SettingController::class, 'update']);
         Route::get('/integrations', [IntegrationController::class, 'show']);
         Route::put('/integrations', [IntegrationController::class, 'update']);
+        Route::get('/premium', [PremiumController::class, 'show']);
+        Route::put('/premium', [PremiumController::class, 'update']);
         Route::post('/broadcasts/preview', [BroadcastController::class, 'preview']);
         Route::post('/broadcasts', [BroadcastController::class, 'send']);
     });

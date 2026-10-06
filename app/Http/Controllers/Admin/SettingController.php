@@ -26,6 +26,8 @@ class SettingController extends Controller
         $data = $request->validate([
             'free_limits.likes_per_day' => ['required', 'integer', 'min:0', 'max:1000'],
             'free_limits.messages_per_match' => ['required', 'integer', 'min:0', 'max:1000'],
+            'free_limits.anon_chats_per_day' => ['required', 'integer', 'min:0', 'max:1000'],
+            'free_limits.anon_messages_per_chat' => ['required', 'integer', 'min:0', 'max:1000'],
             'app.min_supported_version' => ['required', 'string', 'max:20', 'regex:/^\d+\.\d+\.\d+$/'],
             'app.maintenance_mode' => ['required', 'boolean'],
             'app.maintenance_message' => ['nullable', 'string', 'max:255'],
