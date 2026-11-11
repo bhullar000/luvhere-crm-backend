@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AppEventsController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BroadcastController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -32,6 +33,9 @@ Route::middleware(['auth:sanctum', 'admin.role'])->group(function () {
     // Read access for every role
     Route::get('/overview', [DashboardController::class, 'overview']);
     Route::get('/analytics', [DashboardController::class, 'analytics']);
+    Route::get('/app-events/summary', [AppEventsController::class, 'summary']);
+    Route::get('/app-events/names', [AppEventsController::class, 'names']);
+    Route::get('/app-events', [AppEventsController::class, 'index']);
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{id}', [UserController::class, 'show'])->whereNumber('id');
     Route::get('/reports', [ReportController::class, 'index']);

@@ -77,6 +77,16 @@ return [
         'disk' => env('MEDIA_DISK', 's3'),
         'prefix' => env('AWS_UPLOAD_PATH', ''),
         'url' => env('AWS_BUCKET_URL'),
+
+        // Same CloudFront setup as kive-backend: the bucket is private, staff see signed URLs.
+        'cloudfront' => [
+            'url' => env('CLOUDFRONT_URL'),
+            'origin_path' => env('CLOUDFRONT_ORIGIN_PATH', ''),
+            'key_pair_id' => env('CLOUDFRONT_KEY_PAIR_ID'),
+            'private_key' => env('CLOUDFRONT_PRIVATE_KEY'),
+            'private_key_path' => env('CLOUDFRONT_PRIVATE_KEY_PATH'),
+            'ttl' => (int) env('CLOUDFRONT_URL_TTL', 86400),
+        ],
     ],
 
     /*

@@ -25,6 +25,13 @@ class AppSetting extends Model
             'min_supported_version' => '1.0.0',
             'maintenance_mode' => false,
             'maintenance_message' => 'Kive is getting a tune-up. Back shortly.',
+            // On: a build older than the store's latest version can't be used until it updates.
+            'force_update' => false,
+            'latest_version_ios' => '1.0.0',
+            'latest_version_android' => '1.0.0',
+            'ios_store_url' => '',
+            'android_store_url' => 'https://play.google.com/store/apps/details?id=com.luvhere.app',
+            'update_message' => null,
         ],
         // test | live per integration (IntegrationController); a missing key follows kive-backend's .env.
         'integrations' => [],

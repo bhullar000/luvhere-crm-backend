@@ -31,7 +31,7 @@ class PhotoModerationController extends Controller
 
         $page = $q->orderBy('id', $status === 'pending' ? 'asc' : 'desc')->paginate(min(60, max(6, (int) $request->query('per_page', 24))));
         $page->getCollection()->transform(fn (Photo $p) => [
-            'id' => $p->id, 'url' => $p->url, 'thumb_url' => $p->thumb_url ?: $p->url,
+            'id' => $p->id, 'url' => $p->signedUrl(), 'thumb_url' => $p->signedThumb(),
             'is_primary' => $p->is_primary, 'moderation_status' => $p->moderation_status,
             'face_status' => $p->face_status, 'face_similarity' => $p->face_similarity, 'face_reason' => $p->face_reason,
             'created_at' => $p->created_at?->toIso8601String(),
@@ -58,8 +58,11 @@ class PhotoModerationController extends Controller
 
         foreach ($photos as $photo) {
             if ($data['decision'] === 'approve') {
+                // A person's approval overrides the automated scan, which hides a photo until it
+                // comes back clean (and never does if the scan is stuck or failed).
                 DB::table('photos')->where('id', $photo->id)->update([
                     'moderation_status' => 'approved', 'moderated_by' => $adminId, 'moderated_at' => now(),
+                    'content_status' => 'clean', 'content_reason' => null, 'content_checked_at' => now(),
                 ]);
                 continue;
             }

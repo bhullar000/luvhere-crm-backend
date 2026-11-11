@@ -10,7 +10,7 @@ use App\Services\Admin\AuditLogger;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-/** Remote app config: free-plan limits, minimum app version, maintenance mode. */
+/** Remote app config: free-plan limits, app versions and the forced update, maintenance mode. */
 class SettingController extends Controller
 {
     public function show(): JsonResponse
@@ -31,10 +31,17 @@ class SettingController extends Controller
             'app.min_supported_version' => ['required', 'string', 'max:20', 'regex:/^\d+\.\d+\.\d+$/'],
             'app.maintenance_mode' => ['required', 'boolean'],
             'app.maintenance_message' => ['nullable', 'string', 'max:255'],
+            'app.force_update' => ['sometimes', 'boolean'],
+            'app.latest_version_ios' => ['sometimes', 'string', 'max:20', 'regex:/^\d+\.\d+\.\d+$/'],
+            'app.latest_version_android' => ['sometimes', 'string', 'max:20', 'regex:/^\d+\.\d+\.\d+$/'],
+            'app.ios_store_url' => ['nullable', 'url:https', 'max:255'],
+            'app.android_store_url' => ['nullable', 'url:https', 'max:255'],
+            'app.update_message' => ['nullable', 'string', 'max:255'],
         ]);
 
         AppSetting::put('free_limits', $data['free_limits']);
-        AppSetting::put('app', $data['app']);
+        // Merged, so a client that doesn't send the update fields keeps them.
+        AppSetting::put('app', [...AppSetting::get('app'), ...$data['app']]);
         AuditLogger::log($request, 'settings.update', 'settings', null, $data);
 
         return $this->show();

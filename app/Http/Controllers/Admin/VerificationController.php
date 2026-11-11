@@ -35,7 +35,7 @@ class VerificationController extends Controller
                 'id' => $v->user->id, 'name' => $v->user->name, 'email' => $v->user->email, 'phone' => $v->user->phone,
                 'is_verified' => $v->user->is_verified,
                 'photos' => $v->user->photos->take(4)->map(fn ($p) => [
-                    'id' => $p->id, 'thumb_url' => $p->thumb_url ?: $p->url,
+                    'id' => $p->id, 'thumb_url' => $p->signedThumb(),
                     'face_status' => $p->face_status, 'face_similarity' => $p->face_similarity,
                 ])->values(),
             ] : null,

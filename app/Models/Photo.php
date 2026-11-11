@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Support\MediaUrl;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,18 @@ class Photo extends Model
         'face_similarity' => 'float',
         'face_checked_at' => 'datetime',
     ];
+
+    /** Signed original; the bucket is private. */
+    public function signedUrl(): ?string
+    {
+        return MediaUrl::sign($this->storage_key ?: $this->url);
+    }
+
+    /** Signed thumbnail, falling back to the original. */
+    public function signedThumb(): ?string
+    {
+        return MediaUrl::sign($this->thumb_key ?: $this->thumb_url) ?? $this->signedUrl();
+    }
 
     /** @return BelongsTo<User, Photo> */
     public function user(): BelongsTo

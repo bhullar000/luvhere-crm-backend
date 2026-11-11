@@ -216,7 +216,7 @@ class UserController extends Controller
             'status' => $u->status ?? 'active',
             'is_verified' => $u->is_verified, 'verification_status' => $u->verification_status,
             'is_premium' => $u->is_premium,
-            'avatar' => $photo ? ($photo->thumb_url ?: $photo->url) : null,
+            'avatar' => $photo?->signedThumb(),
             'onboarded' => (bool) $u->onboarding_completed_at,
             'last_active_at' => $u->last_active_at?->toIso8601String(),
             'created_at' => $u->created_at?->toIso8601String(),
@@ -228,7 +228,7 @@ class UserController extends Controller
     private function photo($p): array
     {
         return [
-            'id' => $p->id, 'url' => $p->url, 'thumb_url' => $p->thumb_url ?: $p->url,
+            'id' => $p->id, 'url' => $p->signedUrl(), 'thumb_url' => $p->signedThumb(),
             'is_primary' => $p->is_primary, 'position' => $p->position,
             'moderation_status' => $p->moderation_status,
             'face_status' => $p->face_status, 'face_similarity' => $p->face_similarity, 'face_reason' => $p->face_reason,
