@@ -73,6 +73,9 @@ return [
     |
     */
 
+    // kive-backend's VERIFICATION_DISK, so a data reset can remove the encrypted face references.
+    'verification_disk' => env('VERIFICATION_DISK'),
+
     'media' => [
         'disk' => env('MEDIA_DISK', 's3'),
         'prefix' => env('AWS_UPLOAD_PATH', ''),

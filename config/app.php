@@ -78,6 +78,9 @@ return [
     |
     */
 
+    // Lets a super admin wipe all member data from Settings; set false once real members sign up.
+    'allow_data_reset' => (bool) env('ALLOW_DATA_RESET', true),
+
     'locale' => env('APP_LOCALE', 'en'),
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AppEventsController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BroadcastController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DataResetController;
 use App\Http\Controllers\Admin\IntegrationController;
 use App\Http\Controllers\Admin\PhotoModerationController;
 use App\Http\Controllers\Admin\PremiumController;
@@ -80,5 +81,7 @@ Route::middleware(['auth:sanctum', 'admin.role'])->group(function () {
         Route::put('/admins/{id}', [AdminUserController::class, 'update'])->whereNumber('id');
         Route::delete('/admins/{id}', [AdminUserController::class, 'destroy'])->whereNumber('id');
         Route::get('/audit', [AdminUserController::class, 'audit']);
+        Route::get('/data-reset', [DataResetController::class, 'show']);
+        Route::post('/data-reset', [DataResetController::class, 'destroy'])->middleware('throttle:3,10');
     });
 });
